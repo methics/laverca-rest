@@ -56,7 +56,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         this.DataToBeDisplayed.Data = dtbd;
         
         this.AdditionalServices = new ArrayList<>();
-        this.AdditionalServices.add(fi.methics.laverca.rest.json.AdditionalServices.VALIDATION_AS);
+        //this.AdditionalServices.add(fi.methics.laverca.rest.json.AdditionalServices.VALIDATION_AS);
         
         this.AP_Info = new AP_Info();
     }

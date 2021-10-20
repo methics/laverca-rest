@@ -90,12 +90,14 @@ public class MssClient {
             List<MobileUserCertificate> jsonChain = resp.MSS_ProfileResp.Status.StatusDetail.ProfileQueryExtension.MobileUserCertificate;
             List<X509Certificate>     resultChain = new ArrayList<>();
 
+            int i = 0;
             for (MobileUserCertificate chain : jsonChain) {
                 if (chain == null) continue;
                 if (chain.SignatureProfiles == null) continue;
                 if (chain.X509Certificate   == null) continue;
                 if (chain.State != null && !chain.State.equals("ACTIVE")) continue; // ignore inactive certs
                 
+                System.out.println("Parsing chain " + ++i + " of size " + chain.X509Certificate.size());
                 if (chain.SignatureProfiles.contains(signatureprofile)) {
                     List<X509Certificate> certs = new ArrayList<>();
                     for (String cert : chain.X509Certificate) {
@@ -138,7 +140,7 @@ public class MssClient {
 
             jReq.MSS_SignatureReq = new MSS_SignatureReq(msisdn, dtbs, dtbd);
             jReq.MSS_SignatureReq.SignatureProfile = signatureprofile;
-            jReq.MSS_SignatureReq.MSS_Format       = FORMAT_CMS;
+            jReq.MSS_SignatureReq.MSS_Format       = FORMAT_KIURU_PKCS1;
             jReq.MSS_SignatureReq.AP_Info.AP_ID    = this.apid;
             jReq.MSS_SignatureReq.AP_Info.AP_PWD   = this.appwd;
             jReq.MSS_SignatureReq.AP_Info.AP_TransID = "A" + UUID.randomUUID().toString();
