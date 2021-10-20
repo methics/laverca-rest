@@ -48,6 +48,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * Copy of Apache POI DOMXMLSignatureFactory that returns our copy of
+ * DOMXMLSignature ({@link MssDOMXMLSignature} that omits signing with a private key
+ */
 public class MssDOMXMLSignatureFactory extends XMLSignatureFactory {
 
     /**

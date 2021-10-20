@@ -1,5 +1,8 @@
 package fi.methics.laverca.rest;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
@@ -45,22 +48,20 @@ public class SignDOCX {
         
         SignatureConfig signatureConfig = new SignatureConfig();
         signatureConfig.setSigningCertificateChain(chain);
-        
+        signatureConfig.setIncludeEntireCertificateChain(true);
+        signatureConfig.setKey(new DummyPrivateKey());
+
         signatureConfig.setSignatureFacets(Arrays.asList(new OOXMLSignatureFacet(), 
                                                          new KeyInfoSignatureFacet(),
                                                          new XAdESSignatureFacet(),
                                                          new Office2010SignatureFacet()));
         
-        // Testing
-        signatureConfig.setIncludeKeyValue(true);
-        signatureConfig.setIncludeEntireCertificateChain(true);
-        // End testing
         
-        signatureConfig.setKey(new DummyPrivateKey());
+        File example = new File("./example.docx");
+        File signed  = new File("./example.signed.docx");
+        Files.copy(example.toPath(), signed.toPath(), StandardCopyOption.REPLACE_EXISTING);
         
-        OPCPackage pkg = OPCPackage.open("./example.docx", PackageAccess.READ_WRITE);
-        
-        System.out.println("Making new MssSignatureInfo");
+        OPCPackage pkg = OPCPackage.open("./example.signed.docx", PackageAccess.READ_WRITE);
         
         MssSignatureInfo si = new MssSignatureInfo(client, MSISDN, SIG_PROFILE);
         si.setOpcPackage(pkg);
