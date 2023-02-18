@@ -11,6 +11,7 @@ import org.apache.poi.poifs.crypt.CryptoFunctions;
 import org.apache.poi.poifs.crypt.HashAlgorithm;
 
 import fi.methics.laverca.rest.MssClient;
+import fi.methics.laverca.rest.util.DTBS;
 
 public class MssDigestOutputStream extends OutputStream {
     
@@ -19,11 +20,13 @@ public class MssDigestOutputStream extends OutputStream {
     private MssClient client;
     private String    msisdn;
     private String    sigprof;
+    private String    message;
     
-    public MssDigestOutputStream(MssClient client, String msisdn, String sigprof) {
+    public MssDigestOutputStream(MssClient client, String msisdn, String message, String sigprof) {
         this.client  = client;
         this.msisdn  = msisdn;
         this.sigprof = sigprof;
+        this.message = message;
     }
     
     public byte[] sign() throws IOException, GeneralSecurityException {
@@ -34,7 +37,7 @@ public class MssDigestOutputStream extends OutputStream {
         byte[] digest = bos.toByteArray();
         System.out.println("Signing digest " + Base64.getEncoder().encodeToString(digest));
         
-        return client.signDocument(digest, this.msisdn, this.sigprof);
+        return client.sign(this.msisdn, message, digest, DTBS.MIME_SHA256, this.sigprof);
     }
 
     public void init() throws GeneralSecurityException {

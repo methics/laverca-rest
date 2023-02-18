@@ -1,9 +1,8 @@
 //
-//  (c) Copyright 2003-2020 Methics Oy. All rights reserved.
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
 //
 package fi.methics.laverca.rest.json;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -42,7 +41,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
     @SerializedName("MSS_Format")
     public String MSS_Format;
     
-    public MSS_SignatureReq(final String msisdn, final DTBS dtbs, final String dtbd) throws IOException {
+    public MSS_SignatureReq(final String msisdn, final DTBS dtbs, final String dtbd) {
         this.MessagingMode = "synch";
         this.MobileUser = new MobileUser();
         this.MobileUser.MSISDN = msisdn;
@@ -52,8 +51,10 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         this.DataToBeSigned.Encoding = dtbs.getEncoding();
         this.DataToBeSigned.MimeType = dtbs.getMimetype();
         
-        this.DataToBeDisplayed = new Data();
-        this.DataToBeDisplayed.Data = dtbd;
+        if (dtbd != null) {
+            this.DataToBeDisplayed = new Data();
+            this.DataToBeDisplayed.Data = dtbd;
+        }
         
         this.AdditionalServices = new ArrayList<>();
         //this.AdditionalServices.add(fi.methics.laverca.rest.json.AdditionalServices.VALIDATION_AS);

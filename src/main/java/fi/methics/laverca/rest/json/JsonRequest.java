@@ -1,5 +1,5 @@
 //
-//  (c) Copyright 2003-2014 Methics Oy. All rights reserved.
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
 //
 package fi.methics.laverca.rest.json;
 
@@ -23,9 +23,6 @@ public class JsonRequest {
     @SerializedName("MSS_ProfileReq")
     public MSS_ProfileReq   MSS_ProfileReq;
     
-//    @SerializedName("MSS_RegistrationReq")
-//    public MSS_RegistrationReq   MSS_RegistrationReq;    
-    
     public RequestType getRequestType() {
         if (this.MSS_SignatureReq != null) {
             return RequestType.MSS_SignatureReq;
@@ -39,10 +36,6 @@ public class JsonRequest {
         if (this.MSS_ProfileReq != null) {
             return RequestType.MSS_ProfileReq;
         }
-//        if (this.MSS_RegistrationReq != null) {
-//            return RequestType.MSS_RegistrationReq;
-//        }
-
         return RequestType.UNKNOWN;
     }
     

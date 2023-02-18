@@ -1,5 +1,5 @@
 //
-//  (c) Copyright 2003-2020 Methics Oy. All rights reserved.
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved.
 //
 package fi.methics.laverca.rest.json;
 
@@ -19,14 +19,8 @@ public class MobileUser {
         this.MSISDN = msisdn;
     }
     
-//    @SerializedName("IdentityIssuer")
-//    public IdentityIssuer IdentityIssuer;
-    
     @SerializedName("UserIdentifier")
     public String UserIdentifier;
-    
-//    @SerializedName("HomeMSSP")
-//    public HomeMSSP HomeMSSP;
     
     @SerializedName("MSISDN")
     public String MSISDN;

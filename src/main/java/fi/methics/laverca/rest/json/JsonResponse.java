@@ -1,5 +1,5 @@
 //
-//  (c) Copyright 2003-2020 Methics Oy. All rights reserved. 
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
 //
 package fi.methics.laverca.rest.json;
 
@@ -34,6 +34,10 @@ public class JsonResponse {
         return GSON.fromJson(resp, JsonResponse.class);
     }
     
+    /**
+     * Get the JSON response type from this message
+     * @return
+     */
     public ResponseType getResponseType() {
         if (this.Fault != null) {
             return ResponseType.Fault;
@@ -50,10 +54,7 @@ public class JsonResponse {
         if (this.MSS_ProfileResp != null) {
             return ResponseType.MSS_ProfileResp;
         }
-//        if (this.MSS_RegistrationResp != null) {
-//            return ResponseType.MSS_RegistrationResp;
-//        }
-
+        
         return ResponseType.UNKNOWN;
     }
     

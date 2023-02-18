@@ -32,17 +32,19 @@ public class MssSignatureInfo extends SignatureInfo {
     private MssClient client;
     private String    msisdn;
     private String    sigprof;
+    private String    message;
     
-    public MssSignatureInfo(final MssClient client, final String msisdn, final String sigprof) {
+    public MssSignatureInfo(final MssClient client, final String msisdn, final String message, final String sigprof) {
         this.client  = client;
         this.msisdn  = msisdn;
         this.sigprof = sigprof;
+        this.message = message;
     }
     
     @Override
     public String signDigest(DOMSignContext xmlSignContext, DOMSignedInfo signedInfo) {
         this.initXmlProvider();
-        try (final MssDigestOutputStream dos = new MssDigestOutputStream(this.client, this.msisdn, this.sigprof)) {
+        try (final MssDigestOutputStream dos = new MssDigestOutputStream(this.client, this.msisdn, this.message, this.sigprof)) {
             dos.init();
 
             final Document document = (Document)xmlSignContext.getParent();

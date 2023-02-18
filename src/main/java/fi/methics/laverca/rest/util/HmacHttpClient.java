@@ -1,7 +1,6 @@
 //
-//  (c) Copyright 2003-2021 Methics Technologies Oy. All rights reserved. 
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
 //
-
 package fi.methics.laverca.rest.util;
 
 import java.io.IOException;

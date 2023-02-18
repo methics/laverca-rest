@@ -1,3 +1,6 @@
+//
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
+//
 package fi.methics.laverca.rest.util;
 
 import java.io.IOException;
@@ -42,7 +45,6 @@ import eu.europa.esig.dss.spi.DSSASN1Utils;
 import eu.europa.esig.dss.spi.x509.tsp.TSPSource;
 import eu.europa.esig.dss.utils.Utils;
 import eu.europa.esig.dss.validation.AdvancedSignature;
-import eu.europa.esig.dss.validation.CMSOCSPSource;
 import eu.europa.esig.dss.validation.CertificateVerifier;
 import eu.europa.esig.dss.validation.DefaultAdvancedSignature;
 import eu.europa.esig.dss.validation.ValidationContext;

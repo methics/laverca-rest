@@ -1,7 +1,6 @@
 package fi.methics.laverca.rest.docx;
 
 import java.lang.reflect.Method;
-import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.Provider;
 import java.util.ArrayList;
