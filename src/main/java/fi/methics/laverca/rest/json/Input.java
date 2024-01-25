@@ -3,8 +3,6 @@
 //
 package fi.methics.laverca.rest.json;
 
-import com.twolattes.json.Entity;
-
 /**
  * InputParameter of a {@link UseCase}.
  * InputParameter consists of multiple parameter attributes defined in {@link Param}.
@@ -19,7 +17,6 @@ import com.twolattes.json.Entity;
  * </pre>
  * JSON name: "Input"
  */
-@Entity
 public class Input extends Param {
 
     /**
