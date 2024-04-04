@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>laverca-rest</groupId>
   <artifactId>laverca-rest</artifactId>
-  <version>1.3.3</version>
+  <version>1.4.0</version>
   <name>Laverca REST MSS client</name>
   
   <build>

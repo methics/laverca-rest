@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import fi.methics.laverca.rest.MssClient;
+import fi.methics.laverca.rest.json.AdditionalService;
 import fi.methics.laverca.rest.json.BatchSignatureReq;
 import fi.methics.laverca.rest.json.MSS_BatchSignatureReq;
 import fi.methics.laverca.rest.json.MSS_SignatureReq;
@@ -35,6 +36,7 @@ public class MSS_SignatureReqBuilder {
     private String mssFormat;
     private int timeout;
     
+    private List<AdditionalService> services  = new ArrayList<>();
     private List<BatchSignatureReq> batchReqs = new ArrayList<>();
     
     public MSS_SignatureReqBuilder() {
@@ -56,6 +58,9 @@ public class MSS_SignatureReqBuilder {
             if (this.timeout > 0) {
                 req.TimeOut = String.valueOf(this.timeout);
             }
+            if (this.services.size() > 0) {
+                req.AdditionalServices = this.services;
+            }
             return req;
         } else {
             MSS_BatchSignatureReq req = new MSS_BatchSignatureReq(this.msisdn, this.dtbs, this.dtbd);
@@ -69,6 +74,9 @@ public class MSS_SignatureReqBuilder {
             }
             for (BatchSignatureReq br : this.batchReqs) {
                 req.addBatchSignatureRequest(br);
+            }
+            if (this.services.size() > 0) {
+                req.AdditionalServices = this.services;
             }
             return req;
         }
@@ -155,6 +163,16 @@ public class MSS_SignatureReqBuilder {
      */
     public MSS_SignatureReqBuilder withSignatureProfile(String signatureprofile) {
         this.signatureprofile = signatureprofile;
+        return this;
+    }
+    
+    /**
+     * Add an AdditionalService
+     * @param as AdditionalService
+     * @return this builder
+     */
+    public MSS_SignatureReqBuilder withAdditionalService(AdditionalService as) {
+        this.services.add(as);
         return this;
     }
     
