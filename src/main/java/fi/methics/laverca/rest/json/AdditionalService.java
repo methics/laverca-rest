@@ -81,10 +81,10 @@ public class AdditionalService {
 
     /**
      * Create a new UserLang AdditionalService.
-     * @param language Should the NoSpamCode be validated?
+     * @param language Language to use. 2 characters.
      * @return AS
      */
-    public static AdditionalService createNoSpamCodeService(String language) {
+    public static AdditionalService createLanguageService(String language) {
         AdditionalService as = new AdditionalService(EVENT_ID_AS);
         as.UserLang = new UserLang(language);
         return as;
