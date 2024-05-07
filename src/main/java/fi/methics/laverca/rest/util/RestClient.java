@@ -93,6 +93,9 @@ public class RestClient {
         log.debug("Got response " + resp);
         try {
             JsonResponse jResp = JsonResponse.fromString(resp);
+            if (jResp == null) {
+                throw new MssRestException(MssRestException.INTERNAL_ERROR, "Got empty response");
+            }
             if (jResp.isFault()) {
                 throw new MssRestException(jResp.getFaultCode(), jResp.getFaultDetail());
             }
