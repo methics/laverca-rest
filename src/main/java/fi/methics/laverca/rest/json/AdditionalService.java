@@ -74,7 +74,7 @@ public class AdditionalService {
      * @return AS
      */
     public static AdditionalService createNoSpamCodeService(boolean validate, String nospam) {
-        AdditionalService as = new AdditionalService(EVENT_ID_AS);
+        AdditionalService as = new AdditionalService(NO_SPAM_AS);
         as.NoSpamCode = new NoSpamCode(validate, nospam);
         return as;
     }
@@ -85,7 +85,7 @@ public class AdditionalService {
      * @return AS
      */
     public static AdditionalService createLanguageService(String language) {
-        AdditionalService as = new AdditionalService(EVENT_ID_AS);
+        AdditionalService as = new AdditionalService(USER_LANG_AS);
         as.UserLang = new UserLang(language);
         return as;
     }
