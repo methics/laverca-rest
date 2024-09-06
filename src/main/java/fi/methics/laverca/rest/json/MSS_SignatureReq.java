@@ -47,7 +47,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         this.MobileUser.MSISDN = msisdn;
         
         this.DataToBeSigned = new Data();
-        this.DataToBeSigned.Data     = Base64.getEncoder().encodeToString(dtbs.toBytes());
+        this.DataToBeSigned.Data     = dtbs.getText();
         this.DataToBeSigned.Encoding = dtbs.getEncoding();
         this.DataToBeSigned.MimeType = dtbs.getMimetype();
         
@@ -88,8 +88,14 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         
         public Data(DTBS dtbs) {
             if (dtbs != null) {
-                this.Data     = Base64.getEncoder().encodeToString(dtbs.toBytes());
-                this.Encoding = dtbs.getEncoding();
+                
+                if (dtbs.isData()) {
+                    this.Data     = Base64.getEncoder().encodeToString(dtbs.toBytes());
+                    this.Encoding = "BASE64";
+                } else {
+                    this.Data     = dtbs.getText();
+                    this.Encoding = dtbs.getEncoding();
+                }
                 this.MimeType = dtbs.getMimetype();
                 if (this.MimeType == null) {
                     this.MimeType = "text/plain";
