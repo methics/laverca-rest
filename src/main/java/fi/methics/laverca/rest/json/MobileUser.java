@@ -24,5 +24,21 @@ public class MobileUser {
     
     @SerializedName("MSISDN")
     public String MSISDN;
+
+	public String getUserIdentifier() {
+		return UserIdentifier;
+	}
+
+	public void setUserIdentifier(String userIdentifier) {
+		UserIdentifier = userIdentifier;
+	}
+
+	public String getMSISDN() {
+		return MSISDN;
+	}
+
+	public void setMSISDN(String mSISDN) {
+		MSISDN = mSISDN;
+	}
     
 }
