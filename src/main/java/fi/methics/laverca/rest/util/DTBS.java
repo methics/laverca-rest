@@ -4,6 +4,7 @@
 package fi.methics.laverca.rest.util;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Dual-mode mapper class for "DataToBeSigned"
@@ -75,7 +76,23 @@ public class DTBS {
     public String  getText() { return this.text; }
     public byte[]  getData() { return this.data; }
 
-
+    /**
+     * Is this a data DTBS?
+     * @return true if data
+     */
+    public boolean isData() {
+        return this.data != null;
+    }
+    
+    /**
+     * Is this a text DTBS/DTBD?
+     * @return true if text
+     */
+    public boolean isText() {
+        return this.text != null;
+    }
+    
+    
     /**
      * Converter of incoming DTBS to byte-array, if the incoming
      * form happened to be a String, otherwise returning it as is.
@@ -88,11 +105,21 @@ public class DTBS {
             return this.data;
         }
         if (this.text != null) {
-            try {
-                return this.text.getBytes(this.encoding);
+            if (this.encoding == null) {
+                return this.text.getBytes(StandardCharsets.UTF_8);
             }
-            catch (UnsupportedEncodingException uee) {
-                throw new RuntimeException(uee);
+            switch (this.encoding.toLowerCase()) {
+            case "base64":
+            case "hex": 
+                return this.text.getBytes(StandardCharsets.UTF_8);
+            }
+            
+            try {
+                // Try to use encoding as charset - for backwards compatibility
+                return this.text.getBytes(this.encoding);
+            } catch (UnsupportedEncodingException uee) {
+                // Default to UTF-8 if encoding is not a valid charset
+                return this.text.getBytes(StandardCharsets.UTF_8);
             }
         }
         throw new RuntimeException("Illegal DTBS");
