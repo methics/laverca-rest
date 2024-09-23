@@ -16,4 +16,7 @@ public class MSS_ReceiptReq extends MSS_AbstractMessage {
     @SerializedName("Status")
     public Status Status;
 
+    @SerializedName("Message")
+    public Message Message;
+
 }

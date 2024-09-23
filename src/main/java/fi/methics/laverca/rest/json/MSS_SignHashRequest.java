@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import fi.methics.laverca.rest.util.DTBS;
 
-public class MSS_SignHashRequest extends MSS_RegistrationReq {
+public class MSS_SignHashRequest extends MSS_SignatureReq {
 
     @SerializedName("MessagingMode")
     public String MessagingMode;
@@ -41,28 +41,27 @@ public class MSS_SignHashRequest extends MSS_RegistrationReq {
     public String MSS_Format;
 
     public MSS_SignHashRequest(final String msisdn, final DTBS dtbs, final String dtbd) {
+        super(msisdn, dtbs, dtbd);
         this.MessagingMode = "synch";
         this.MobileUser = new MobileUser();
         this.MobileUser.MSISDN = msisdn;
 
-        
         this.DataToBeSigned = new Data(dtbs);
 
-       
         if (dtbd != null) {
             this.DataToBeDisplayed = new Data();
             this.DataToBeDisplayed.Data = dtbd;
-            this.DataToBeDisplayed.Encoding = DTBS.ENCODING_UTF8;  
-            this.DataToBeDisplayed.MimeType = DTBS.MIME_TEXTPLAIN;  
+            this.DataToBeDisplayed.Encoding = DTBS.ENCODING_UTF8;
+            this.DataToBeDisplayed.MimeType = DTBS.MIME_TEXTPLAIN;
         }
 
-       
         this.AdditionalServices = new ArrayList<>();
-        this.AP_Info = new AP_Info();  
+        this.AP_Info = new AP_Info();
     }
 
     /**
      * Add an additional service to this request
+     * 
      * @param as AdditionalService
      */
     public void addAdditionalService(AdditionalService as) {
@@ -96,7 +95,7 @@ public class MSS_SignHashRequest extends MSS_RegistrationReq {
                 this.Encoding = dtbs.getEncoding();
                 this.MimeType = dtbs.getMimetype();
                 if (this.MimeType == null) {
-                    this.MimeType = DTBS.MIME_TEXTPLAIN;  // Default to text/plain if MIME type is not provided
+                    this.MimeType = DTBS.MIME_TEXTPLAIN; // Default to text/plain if MIME type is not provided
                 }
             }
         }
