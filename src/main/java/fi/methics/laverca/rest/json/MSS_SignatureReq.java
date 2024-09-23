@@ -47,7 +47,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         this.MobileUser.MSISDN = msisdn;
         
         this.DataToBeSigned = new Data();
-        this.DataToBeSigned.Data     = dtbs.getText();
+        this.DataToBeSigned.Data     = dtbs.getText() != null ? dtbs.getText() : Base64.getEncoder().encodeToString(dtbs.toBytes());
         this.DataToBeSigned.Encoding = dtbs.getEncoding();
         this.DataToBeSigned.MimeType = dtbs.getMimetype();
         
