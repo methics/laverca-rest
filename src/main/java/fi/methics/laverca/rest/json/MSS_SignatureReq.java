@@ -94,6 +94,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
                     this.Encoding = "BASE64";
                 } else {
                     this.Data = dtbs.getText();
+
                     this.Encoding = dtbs.getEncoding();
                 }
                 this.MimeType = dtbs.getMimetype();

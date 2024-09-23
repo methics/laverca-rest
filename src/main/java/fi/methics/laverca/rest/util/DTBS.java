@@ -92,14 +92,22 @@ public class DTBS {
     }
 
     /**
+
+     * Is this a data DTBS?
+     * @return true if data
+     */
+    public boolean isData() {
+        return this.data != null;
+    }
+    
+    /**
      * Is this a text DTBS/DTBD?
-     * 
      * @return true if text
      */
     public boolean isText() {
         return this.text != null;
     }
-
+  
     /**
      * Converter of incoming DTBS to byte-array, if the incoming form happened to be
      * a String, otherwise returning it as is.
@@ -117,6 +125,7 @@ public class DTBS {
             }
             switch (this.encoding.toLowerCase()) {
             case "base64":
+
             case "hex":
                 return this.text.getBytes(StandardCharsets.UTF_8);
             }
