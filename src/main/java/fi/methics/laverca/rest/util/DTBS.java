@@ -90,16 +90,7 @@ public class DTBS {
     public boolean isData() {
         return this.data != null;
     }
-
-    /**
-
-     * Is this a data DTBS?
-     * @return true if data
-     */
-    public boolean isData() {
-        return this.data != null;
-    }
-    
+ 
     /**
      * Is this a text DTBS/DTBD?
      * @return true if text
