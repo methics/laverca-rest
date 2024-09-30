@@ -1,5 +1,5 @@
 //
-//  (c) Copyright 2003-2023 Methics Oy. All rights reserved. 
+//  (c) Copyright 2003-2023 Methics Oy. All rights reserved.
 //
 package fi.methics.laverca.rest.json;
 
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import fi.methics.laverca.rest.util.DTBS;
 
-public class MSS_SignatureReq extends MSS_AbstractMessage {
+public class MSS_SignHashRequest extends MSS_SignatureReq {
 
     @SerializedName("MessagingMode")
     public String MessagingMode;
@@ -40,19 +40,19 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
     @SerializedName("MSS_Format")
     public String MSS_Format;
 
-    public MSS_SignatureReq(final String msisdn, final DTBS dtbs, final String dtbd) {
+    public MSS_SignHashRequest(final String msisdn, final DTBS dtbs, final String dtbd) {
+        super(msisdn, dtbs, dtbd);
         this.MessagingMode = "synch";
         this.MobileUser = new MobileUser();
         this.MobileUser.MSISDN = msisdn;
 
-        this.DataToBeSigned = new Data();
-        this.DataToBeSigned.Data = dtbs.getText();
-        this.DataToBeSigned.Encoding = dtbs.getEncoding();
-        this.DataToBeSigned.MimeType = dtbs.getMimetype();
+        this.DataToBeSigned = new Data(dtbs);
 
         if (dtbd != null) {
             this.DataToBeDisplayed = new Data();
             this.DataToBeDisplayed.Data = dtbd;
+            this.DataToBeDisplayed.Encoding = DTBS.ENCODING_UTF8;
+            this.DataToBeDisplayed.MimeType = DTBS.MIME_TEXTPLAIN;
         }
 
         this.AdditionalServices = new ArrayList<>();
@@ -60,7 +60,7 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
     }
 
     /**
-     * Add a new AdditionalService request to this MSS_SignatureReq
+     * Add an additional service to this request
      * 
      * @param as AdditionalService
      */
@@ -71,6 +71,9 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         this.AdditionalServices.add(as);
     }
 
+    /**
+     * Inner class to represent DataToBeSigned or DataToBeDisplayed
+     */
     public static class Data {
 
         @SerializedName("MimeType")
@@ -83,26 +86,18 @@ public class MSS_SignatureReq extends MSS_AbstractMessage {
         public String Data;
 
         public Data() {
-
         }
 
         public Data(DTBS dtbs) {
             if (dtbs != null) {
-
-                if (dtbs.isData()) {
-                    this.Data = Base64.getEncoder().encodeToString(dtbs.toBytes());
-                    this.Encoding = "BASE64";
-                } else {
-                    this.Data = dtbs.getText();
-
-                    this.Encoding = dtbs.getEncoding();
-                }
+                // Set data with Base64 encoding of the DTBS bytes
+                this.Data = Base64.getEncoder().encodeToString(dtbs.toBytes());
+                this.Encoding = dtbs.getEncoding();
                 this.MimeType = dtbs.getMimetype();
                 if (this.MimeType == null) {
-                    this.MimeType = "text/plain";
+                    this.MimeType = DTBS.MIME_TEXTPLAIN; // Default to text/plain if MIME type is not provided
                 }
             }
         }
-
     }
 }
